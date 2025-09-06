@@ -166,6 +166,7 @@ static void menuArticulos() {
         System.out.println("4. Modificar articulo");
         System.out.println("5. Eliminar articulo");
         System.out.println("6. Mostrar articulos");
+        System.out.println("7.Ordenar Articulos");
         System.out.println("0. Volver");
         System.out.print("Opcion: ");
         op = sc.nextInt(); sc.nextLine();
@@ -257,6 +258,23 @@ static void menuArticulos() {
                     System.out.println(a);
                 }
                 break;
+            
+            case 7: //ORDENAR ARITCULOS
+                System.out.println("1.Ordenar por precio ");
+                int opcionOrden=sc.nextInt();sc.nextLine();
+                
+                    switch(opcionOrden){
+                        case 1:
+                            AlgoritmosOrdenacion.burbujaPorPrecio(articulos);
+                        break;
+                        default:
+                            System.out.println("Opcion invalida");
+                    }
+                    System.out.println("Articulos ordenados");
+                    for(Articulo a:articulos){
+                        System.out.println(a);
+                    }
+                    break;
 
             case 0:
                 break;
