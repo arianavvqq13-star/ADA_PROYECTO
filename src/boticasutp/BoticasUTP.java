@@ -160,42 +160,20 @@ static void menuArticulos() {
     int op;
     do {
         System.out.println("\n--- MENÚ ARTÍCULOS ---");
-        System.out.println("1. Buscar por nombre");
-        System.out.println("2. Buscar por categoria");
-        System.out.println("3. Registrar articulo");
-        System.out.println("4. Modificar articulo");
-        System.out.println("5. Eliminar articulo");
-        System.out.println("6. Mostrar articulos");
-        System.out.println("7.Ordenar Articulos");
+        System.out.println("1. Registrar articulo");
+        System.out.println("2. Modificar articulo");
+        System.out.println("3. Eliminar articulo");
+        System.out.println("4. Mostrar articulos");
+        System.out.println("5.Ordenar Articulos");
         System.out.println("0. Volver");
         System.out.print("Opcion: ");
         op = sc.nextInt(); sc.nextLine();
 
         switch (op) {
-            case 1://Bucar articulo por nombre
-                System.out.print("Nombre a buscar: ");
-                String nombreBuscar = sc.nextLine().toLowerCase();
-                for (Articulo a : articulos) {
-                    if (a.getNombre().toLowerCase().contains(nombreBuscar)) {
-                        System.out.println(a);
-                    }
-                }
-                break;
 
-            case 2://buscar articulo por categoria
-                System.out.print("Categoria a buscar: ");
-                String categoriaBuscar = sc.nextLine().toLowerCase();
-                for (Articulo a : articulos) {
-                    if (a.getCategoria().toLowerCase().contains(categoriaBuscar)) {
-                        System.out.println(a);
-                    }
-                }
-                break;
-
-            case 3://Registro de nuevo articulo
+            case 1://Registro de nuevo articulo
                 System.out.print("Codigo: "); String cod = sc.nextLine();
                 System.out.print("Nombre: "); String nom = sc.nextLine();
-                System.out.print("Descripcion: "); String des = sc.nextLine();
                 System.out.print("Precio: "); double pre = sc.nextDouble(); sc.nextLine();
                 System.out.print("Marca: "); String mar = sc.nextLine();
                 System.out.print("Presentacion: "); String prese = sc.nextLine();
@@ -203,8 +181,8 @@ static void menuArticulos() {
                 System.out.print("Categoria: "); String cat = sc.nextLine();
                 articulos.add(new Articulo(cod, nom, des, pre, mar, prese, stock, cat));
                 break;
-
-            case 4://Modificar articulo existente 
+                
+            case 2://Modificar articulo existente 
                 System.out.print("Codigo del artículo a modificar: ");
                 String codMod = sc.nextLine();
                 Articulo artMod = buscarArticuloPorCodigo(codMod);
@@ -241,7 +219,7 @@ static void menuArticulos() {
                 }
                 break;
 
-            case 5://ELIMINAR ARTICULO POR CODIGO
+            case 3://ELIMINAR ARTICULO POR CODIGO
                 System.out.print("Codigo del artículo a eliminar: ");
                 String codDel = sc.nextLine();
                 Articulo artDel = buscarArticuloPorCodigo(codDel);
@@ -253,13 +231,13 @@ static void menuArticulos() {
                 }
                 break;
 
-            case 6://MOSTRAR TODOS LOS ARTICULOS 
+            case 4://MOSTRAR TODOS LOS ARTICULOS 
                 for (Articulo a : articulos) {
                     System.out.println(a);
                 }
                 break;
             
-            case 7: //ORDENAR ARITCULOS
+            case 5: //ORDENAR ARITCULOS
                 System.out.println("1.Ordenar por precio ");
                 int opcionOrden=sc.nextInt();sc.nextLine();
                 
@@ -359,4 +337,4 @@ static Articulo buscarArticuloPorCodigo(String codigo) {
     System.out.println("===============================================================");
     }
 }    
-    
+    //aprender el tiempo , espacio medio,averiguar los tiempos del tiempo y del espacio , porque no elegismos los otros , mexcla equilibrada , divide y avanza
