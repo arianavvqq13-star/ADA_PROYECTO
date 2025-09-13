@@ -1,4 +1,4 @@
-
+ 
 package boticasutp;
 import Libreria.*;
 import java.util.*;
@@ -19,6 +19,7 @@ public class BoticasUTP {
             System.out.println("2. Mantenimiento de Articulos");
             System.out.println("3. Registrar Pedido");
             System.out.println("4. Imprimir Pedidos");
+            System.out.println("5. Ordenamientos");
             System.out.println("0. Salir");
             System.out.print("Opción: ");
             op = sc.nextInt(); sc.nextLine();//Leemos la ocpion del usuario
@@ -29,6 +30,7 @@ public class BoticasUTP {
                 case 2: menuArticulos(); break;
                 case 3: registrarPedido(); break;
                 case 4: imprimirPedido(); break;
+                case 5: menuOrdenamientos();break;
             }
         } while (op != 0);//Mientras no eliga salir 
     }
@@ -161,10 +163,8 @@ static void menuArticulos() {
     do {
         System.out.println("\n--- MENÚ ARTÍCULOS ---");
         System.out.println("1. Registrar articulo");
-        System.out.println("2. Modificar articulo");
-        System.out.println("3. Eliminar articulo");
-        System.out.println("4. Mostrar articulos");
-        System.out.println("5.Ordenar Articulos");
+        System.out.println("2. Eliminar articulo");
+        System.out.println("3. Mostrar articulos");
         System.out.println("0. Volver");
         System.out.print("Opcion: ");
         op = sc.nextInt(); sc.nextLine();
@@ -179,47 +179,10 @@ static void menuArticulos() {
                 System.out.print("Presentacion: "); String prese = sc.nextLine();
                 System.out.print("Stock: "); int stock = sc.nextInt(); sc.nextLine();
                 System.out.print("Categoria: "); String cat = sc.nextLine();
-                articulos.add(new Articulo(cod, nom, des, pre, mar, prese, stock, cat));
                 break;
                 
-            case 2://Modificar articulo existente 
-                System.out.print("Codigo del artículo a modificar: ");
-                String codMod = sc.nextLine();
-                Articulo artMod = buscarArticuloPorCodigo(codMod);
-                if (artMod != null) {
-                    System.out.print("Nuevo nombre (" + artMod.getNombre() + "): ");
-                    String nuevoNombre = sc.nextLine();
-                    System.out.print("Nueva descripcion: ");
-                    String nuevaDesc = sc.nextLine();
-                    System.out.print("Nuevo precio: ");
-                    double nuevoPrecio = sc.nextDouble(); sc.nextLine();
-                    System.out.print("Nueva marca: ");
-                    String nuevaMarca = sc.nextLine();
-                    System.out.print("Nueva presentacion: ");
-                    String nuevaPres = sc.nextLine();
-                    System.out.print("Nuevo stock: ");
-                    int nuevoStock = sc.nextInt(); sc.nextLine();
-                    System.out.print("Nueva categoria: ");
-                    String nuevaCat = sc.nextLine();
 
-                    // Actualizacion de articulo completo 
-                    articulos.remove(artMod);
-                    articulos.add(new Articulo(codMod,
-                        nuevoNombre.isEmpty() ? artMod.getNombre() : nuevoNombre,
-                        nuevaDesc.isEmpty() ? artMod.getDescripcion() : nuevaDesc,
-                        nuevoPrecio,
-                        nuevaMarca,
-                        nuevaPres,
-                        nuevoStock,
-                        nuevaCat
-                    ));
-                    System.out.println("Articulo modificado.");
-                } else {
-                    System.out.println("Articulo no encontrado.");
-                }
-                break;
-
-            case 3://ELIMINAR ARTICULO POR CODIGO
+            case 2://ELIMINAR ARTICULO POR CODIGO
                 System.out.print("Codigo del artículo a eliminar: ");
                 String codDel = sc.nextLine();
                 Articulo artDel = buscarArticuloPorCodigo(codDel);
@@ -231,33 +194,12 @@ static void menuArticulos() {
                 }
                 break;
 
-            case 4://MOSTRAR TODOS LOS ARTICULOS 
+            case 3://MOSTRAR TODOS LOS ARTICULOS 
                 for (Articulo a : articulos) {
                     System.out.println(a);
                 }
                 break;
-            
-            case 5: //ORDENAR ARITCULOS
-                System.out.println("1.Ordenar por precio ");
-                int opcionOrden=sc.nextInt();sc.nextLine();
-                
-                    switch(opcionOrden){
-                        case 1:
-                            AlgoritmosOrdenacion.burbujaPorPrecio(articulos);
-                        break;
-                        default:
-                            System.out.println("Opcion invalida");
-                    }
-                    System.out.println("Articulos ordenados");
-                    for(Articulo a:articulos){
-                        System.out.println(a);
-                    }
-                    break;
-
-            case 0:
-                break;
-
-            default:
+                default:
                 System.out.println("Opcion invalida.");
         }
     } while (op != 0);
@@ -270,8 +212,64 @@ static Articulo buscarArticuloPorCodigo(String codigo) {
     }
     return null;
 }
+//-------Ordenamiento Interno-------
+    @SuppressWarnings("empty-statement")
+    static void menuOrdenamientos() {
+    int op;
+    do {
+        System.out.println("\n--- MENU ORDENAMIENTOS ---");
+        System.out.println("1. Ordenar Artículos por Precio (Burbuja)");
+        System.out.println("2. Ordenar Clientes por Nombre (Inserción)");
+        System.out.println("3. Ordenar Pedidos por Total (Selección)");
+        System.out.println("4. Ordenacion de Productos ");
+        System.out.println("0. Volver");
+        System.out.print("Opción: ");
+        op = sc.nextInt(); sc.nextLine();
+
+        switch (op) {
+            case 1://Burbuja(precio de menor a mayor)
+                OrdenamientosInterno.burbujaArticulosPorPrecio(articulos);
+                System.out.println("Artículos ordenados por precio:");
+                for (Articulo a : articulos) System.out.println(a);
+                break;
+
+            case 2://Insercion (ordenar por apellido alfabeticamente A-Z)
+                OrdenamientosInterno.insercionClientesPorNombre(clientes);
+                System.out.println("Clientes ordenados por nombre:");
+                for (Cliente c : clientes) System.out.println(c);
+                break;
+
+            case 3://Seleccion(ordenar por total de menor a mayor )
+                OrdenamientosInterno.seleccionPedidosPorTotal(pedidos);
+                System.out.println("Pedidos ordenados por total:");
+                for (Pedido p : pedidos) {
+                    System.out.println(p.getNumeroPedido() + " - Total: " + p.calcularTotal());
+                }
+                break;
+            case 4:
+                String rutaArchivo = "productos.txt"; 
+                // Leer productos
+                List<Articulo> productos = LectorArchivo.leerProductos(rutaArchivo);
+
+                System.out.println("Productos cargados:");
+                for (Articulo a : productos) {
+                    System.out.println(a);
+                }
+                // Ordenar con Merge Sort por precio
+                OrdenamientoExterno.mergeSort(productos);
+
+                System.out.println("\n Productos ordenados por precio:");
+                for (Articulo a : productos) {
+                    System.out.println(a);
+                }
+                break;
+                case 0: break;
+                    default: System.out.println("Opción inválida.");
+                }  
+            } while (op != 0);
+    }         
 //-----------REGISTRO DE PEDIDOS-----------------
-    static void registrarPedido() {
+    static void registrarPedido(){
         System.out.print("DNI del cliente: ");
         String dni = sc.nextLine();
         Cliente cliente = null;
@@ -336,5 +334,4 @@ static Articulo buscarArticuloPorCodigo(String codigo) {
 
     System.out.println("===============================================================");
     }
-}    
-    //aprender el tiempo , espacio medio,averiguar los tiempos del tiempo y del espacio , porque no elegismos los otros , mexcla equilibrada , divide y avanza
+}       //aprender el tiempo , espacio medio,averiguar los tiempos del tiempo y del espacio , porque no elegismos los otros , mexcla equilibrada , divide y avanza
