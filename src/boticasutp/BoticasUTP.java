@@ -249,7 +249,7 @@ static Articulo buscarArticuloPorCodigo(String codigo) {
             case 4:
                 String rutaArchivo = "productos.txt"; 
                 // Leer productos
-                List<Articulo> productos = LectorArchivo.leerProductos(rutaArchivo);
+                List<Articulo> productos = LectorArchivo.leerProductos("productos.txt");
 
                 System.out.println("Productos cargados:");
                 for (Articulo a : productos) {
